@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Документы — Traffic Devils</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="brand">
+      <img src="logo.png" alt="Логотип" />
+      <strong>Traffic Devils</strong>
+    </div>
+  </header>
+
+  <div class="flyout" id="quickMenu">
+    <button class="fab" type="button" aria-expanded="false" aria-controls="qm-list">≡</button>
+    <div class="menu panel" id="qm-list">
+      <a class="btn" href="earn.html">Как я могу заработать</a>
+      <a class="btn" href="how.html">Как это работает</a>
+      <a class="btn" href="documents.html">Документы</a>
+      <a class="btn" href="reviews.html">Отзывы</a>
+      <a class="btn" href="https://t.me/your_bot" target="_blank" rel="noopener">Телеграм-бот</a>
+      <a class="btn" href="remote.html">Если я не могу встретиться</a>
+    </div>
+  </div>
+
+  <main class="container">
+    <h1 style="color:var(--blue);text-align:center;margin-bottom:14px">Наши документы</h1>
+    <p style="text-align:center;margin-bottom:18px">Скан-копии лицензий, регистраций и сертификатов.</p>
+<div class="docs-grid">
+    <div class="doc-item">
+        <a href="docs/license.png" target="_blank">
+            <img src="docs/license.png" alt="License Document">
+        </a>
+        <p>License Certificate</p>
+    </div>
+    <div class="doc-item">
+        <a href="docs/certificate.png" target="_blank">
+            <img src="docs/certificate.png" alt="Registration Certificate">
+        </a>
+        <p>Registration Certificate</p>
+    </div>
+</div>
+
+    <div class="back" style="text-align:center">
+      <a class="btn" href="index.html">Вернуться на главную</a>
+    </div>
+  </main>
+
+  <footer class="footer">© 2025 Traffic Devils</footer>
+
+  <script>
+    (function(){
+      const fly = document.getElementById('quickMenu');
+      const btn = fly.querySelector('.fab');
+      const toggle = () => {
+        fly.classList.toggle('open');
+        btn.setAttribute('aria-expanded', fly.classList.contains('open'));
+      };
+      btn.addEventListener('click', (e)=>{ e.stopPropagation(); toggle(); });
+      document.addEventListener('click', ()=> fly.classList.remove('open'));
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tax Registration Certificate — Traffic Devils</title>
+<style>
+  :root{--paper:#fbfaf7;--ink:#143f8a;--accent:#2b72ef}
+  body{margin:0;display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(#eef4fc,#f6f9ff);font-family:Georgia,"Times New Roman",serif;padding:28px}
+  .paper{width:1100px;max-width:96%;background:var(--paper);padding:56px 64px;border:1px solid rgba(10,40,90,.06);box-shadow:0 30px 80px rgba(10,30,80,.12);position:relative;border-radius:6px}
+  .paper:after{content:"";position:absolute;inset:18px;border:1px solid rgba(20,60,120,.06);pointer-events:none;border-radius:4px}
+  .title{color:var(--ink);font-size:32px;font-weight:700;margin:0 0 14px}
+  .company{text-align:center;font-size:26px;color:var(--accent);font-weight:800;letter-spacing:1.2px;margin:6px 0 16px}
+  .lead{text-align:center;max-width:860px;margin:0 auto 18px;color:#333;line-height:1.6;font-size:16px}
+  .meta{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;color:#444;font-size:15px}
+  .watermark{position:absolute;left:50%;top:50%;transform:translate(-50%,-46%);font-size:105px;color:rgba(20,80,150,.06);font-weight:900;letter-spacing:6px;pointer-events:none}
+  .stamp{position:absolute;right:80px;top:210px;width:180px;height:180px;border-radius:50%;border:6px solid rgba(18,80,160,.95);display:flex;align-items:center;justify-content:center;color:rgba(18,80,160,.95);font-weight:800;transform:rotate(-5deg);mix-blend-mode:multiply;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.05),transparent)}
+  .signature{margin-top:54px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .sig-line{width:380px;border-top:2px solid rgba(40,40,40,.6);padding-top:6px;color:#333;font-size:13px}
+  .sig-name{display:block;margin-top:-8px;font-family:"Pacifico","Brush Script MT",cursive;font-size:34px;color:rgba(10,40,120,.95);transform:skewX(-6deg) rotate(-2deg)}
+  @media(max-width:900px){.watermark{font-size:60px}.stamp{right:24px;top:160px;width:140px;height:140px}.sig-line{width:100%}}
+</style>
+</head>
+<body>
+  <div class="paper" role="document" aria-label="Tax Registration Certificate">
+    <div class="watermark">TRAFFIC DEVILS</div>
+
+    <h1 class="title">Tax Registration Certificate</h1>
+    <div class="company">TRAFFIC DEVILS LTD</div>
+
+    <p class="lead">
+      This is to certify that the entity named above has been registered with the tax authority and assigned the taxpayer identification number shown below.
+    </p>
+
+    <div class="meta">
+      <div><strong>Taxpayer ID</strong><div>TRN-99887766</div></div>
+      <div><strong>Registration Date</strong><div>22 October 2023</div></div>
+      <div><strong>Jurisdiction</strong><div>UK Tax Authority</div></div>
+      <div><strong>Registered Address</strong><div>12 Financial Avenue, London, UK</div></div>
+    </div>
+
+    <div class="stamp" aria-hidden="true">TAX<br>AUTHORITY</div>
+
+    <div class="signature">
+      <div class="sig-line">Tax Officer<span class="sig-name">R. Collins</span></div>
+      <div style="text-align:right;color:#444">
+        <div style="font-weight:700">HM Revenue and Customs</div>
+        <div style="margin-top:6px;font-size:13px;color:#666">United Kingdom</div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:22px;color:#666;font-size:13px">
+      This certificate is issued electronically and remains valid unless revoked by the relevant authority.
+    </div>
+  </div>
+</body>
+</html>

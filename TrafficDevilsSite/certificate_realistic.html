@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Certificate — Traffic Devils (Realistic Demo)</title>
+<style>
+  :root{
+    --paper:#fbfaf7;
+    --edge:#d9e6fb;
+    --ink:#143f8a;
+    --accent:#2b72ef;
+    --muted:#616161;
+  }
+  /* На всю страницу */
+  html,body{height:100%}
+  body{
+    margin:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: linear-gradient(180deg,#e9f2ff 0%, #f7fbff 60%);
+    font-family: "Georgia", "Times New Roman", serif;
+    -webkit-font-smoothing:antialiased;
+    padding:30px;
+  }
+
+  /* Бумага: текстура + легкие тени и краевые потёртости */
+  .paper{
+    width:1100px;
+    max-width:96%;
+    background:
+      /* subtle grain */
+      linear-gradient( rgba(255,255,255,0.25), rgba(255,255,255,0.25) ),
+      url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><filter id="g"><feTurbulence baseFrequency="0.9" numOctaves="1" stitchTiles="stitch" /><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(%23g)" opacity="0.06" fill="%23ffffff"/></svg>');
+    background-color:var(--paper);
+    padding:56px 64px;
+    border:1px solid rgba(10,40,90,0.06);
+    box-shadow:
+      0 30px 80px rgba(10,30,80,0.12),
+      inset 0 2px 0 rgba(255,255,255,0.6),
+      inset 0 -8px 24px rgba(0,0,0,0.03);
+    position:relative;
+    overflow:hidden;
+    border-radius:6px;
+  }
+
+  /* inner thin frame */
+  .paper:before{
+    content:"";
+    position:absolute;
+    inset:18px;
+    border:1px solid rgba(20,60,120,0.06);
+    pointer-events:none;
+    border-radius:4px;
+  }
+
+  .title{
+    color:var(--ink);
+    font-size:34px;
+    font-weight:700;
+    margin:0 0 8px 0;
+    letter-spacing:0.6px;
+    font-family: "Playfair Display", "Georgia", serif;
+  }
+
+  .company{
+    text-align:center;
+    font-size:28px;
+    color:var(--accent);
+    font-weight:800;
+    letter-spacing:1.4px;
+    margin:8px 0 20px;
+    font-family: "Georgia", serif;
+  }
+
+  .lead{
+    text-align:center;
+    max-width:860px;
+    margin:0 auto 22px;
+    color:#333;
+    line-height:1.6;
+    font-size:16px;
+  }
+
+  .meta{
+    display:flex;
+    gap:28px;
+    justify-content:center;
+    margin-top:8px;
+    color:var(--muted);
+    font-size:15px;
+    flex-wrap:wrap;
+  }
+
+  /* realistic stamp: embossed circular imprint (light) + ink stamp (colored) */
+  .emboss{
+    position:absolute;
+    left:84px;
+    top:120px;
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    transform:rotate(-6deg);
+    z-index:2;
+    pointer-events:none;
+    filter: blur(0.6px);
+  }
+  /* the embossed effect uses box-shadow and a subtle inner highlight */
+  .emboss .ring{
+    width:100%; height:100%; border-radius:50%;
+    border:8px solid rgba(255,255,255,0.6);
+    box-shadow:
+      inset 0 8px 10px rgba(255,255,255,0.65),
+      inset 0 -10px 14px rgba(0,0,0,0.05),
+      0 2px 10px rgba(0,0,0,0.05);
+    backdrop-filter: blur(1px);
+  }
+  .emboss .text{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-size:14px; color: rgba(20,60,120,0.12); font-weight:800; letter-spacing:2px;
+  }
+
+  /* ink stamp overlay (slightly offset, rotated) */
+  .stamp-ink{
+    position:absolute;
+    right:84px;
+    top:180px;
+    width:200px;
+    height:200px;
+    transform:rotate(8deg);
+    z-index:3;
+    pointer-events:none;
+    mix-blend-mode:multiply;
+    opacity:0.95;
+    filter: drop-shadow(0 8px 12px rgba(0,0,0,0.08));
+  }
+  /* style for inner elements of ink stamp */
+  .stamp-ink .circle{
+    width:100%; height:100%; border-radius:50%;
+    border:7px solid rgba(18,80,160,0.95);
+    display:flex; align-items:center; justify-content:center;
+    position:relative; box-sizing:border-box;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.03), rgba(255,255,255,0));
+  }
+  .stamp-ink .circle .big{
+    position:absolute; top:36%; left:50%; transform:translate(-50%,-50%); font-weight:800;
+    color:rgba(18,80,160,0.95); font-size:20px; letter-spacing:1px;
+  }
+  .stamp-ink .circle .small{
+    position:absolute; bottom:22%; left:50%; transform:translateX(-50%); font-size:12px; color:rgba(18,80,160,0.95);
+  }
+  /* a little "ink smear" texture */
+  .stamp-ink svg { position:absolute; inset:0; width:100%; height:100%; opacity:0.18; pointer-events:none; }
+
+  /* signature area — handwritten look */
+  .signature{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    margin-top:48px;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .sig-left{ color:#444; font-size:14px; max-width:48%; }
+  .sig-box{
+    width:420px;
+    text-align:left;
+  }
+  .sig-line{ border-top:2px solid rgba(40,40,40,0.6); padding-top:6px; color:#333; font-size:13px; }
+  .sig-name{
+    display:block;
+    margin-top:-8px;
+    font-family: "Pacifico", "Brush Script MT", cursive;
+    font-size:36px; color:rgba(10,40,120,0.95); transform:skewX(-6deg) rotate(-2deg);
+    text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+    /* subtle ink irregularity using text-shadow layers */
+  }
+
+  /* subtle paper crease line */
+  .crease{
+    position:absolute; left:60%; top:28%;
+    width:1px; height:60%;
+    background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(255,255,255,0.06));
+    transform:rotate(3deg); opacity:0.06; pointer-events:none;
+  }
+
+  /* watermark big faint text */
+  .watermark{
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-46%);
+    font-size:120px; color:rgba(20,80,150,0.05); font-weight:900; letter-spacing:6px; pointer-events:none;
+  }
+
+  /* responsive */
+  @media (max-width:900px){
+    .watermark{ font-size:60px; }
+    .emboss{ left:24px; top:100px; width:150px; height:150px; }
+    .stamp-ink{ right:24px; top:140px; width:140px; height:140px; }
+    .sig-box{ width:100%; }
+  }
+</style>
+</head>
+<body>
+  <div class="paper" role="document" aria-label="Certificate">
+    <div class="watermark">TRAFFIC DEVILS</div>
+
+    <div style="display:flex;align-items:center;gap:18px;margin-bottom:8px">
+      <svg width="52" height="52" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#0b3d91"/><path d="M4 12c4-6 8-6 16-6" stroke="#2b72ef" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+      <div style="display:flex;flex-direction:column">
+        <div style="font-size:12px;color:#fff;background:var(--ink);padding:6px 10px;border-radius:6px;display:inline-block">Official</div>
+      </div>
+    </div>
+
+    <h1 class="title">Certificate of Incorporation</h1>
+
+    <div class="company">TRAFFIC DEVILS LTD</div>
+
+    <p class="lead">
+      This certifies that <strong>Traffic Devils Ltd</strong> is duly incorporated under the Companies Act
+      and is registered as a private limited company. The company is constituted in accordance with
+      the laws and regulations governing corporate entities.
+    </p>
+
+    <div class="meta" role="note" aria-hidden="true">
+      <div><strong>Registration No.</strong><div>12345678</div></div>
+      <div><strong>Date of Incorporation</strong><div>21 October 2025</div></div>
+      <div><strong>Registered Office</strong><div>12 Financial Avenue, London, UK</div></div>
+    </div>
+
+    <!-- embossed impression (left) -->
+    <div class="emboss" aria-hidden="true">
+      <div class="ring"></div>
+      <div class="text">OFFICIAL SEAL</div>
+    </div>
+
+    <!-- red/blue ink stamp (right) -->
+    <div class="stamp-ink" aria-hidden="true">
+      <div class="circle">
+        <div class="big">REGISTERED</div>
+        <div class="small">COMPANY · 2025</div>
+        <!-- ink texture SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" preserveAspectRatio="none">
+          <defs><filter id="noise"><feTurbulence baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter></defs>
+          <rect width="100%" height="100%" filter="url(#noise)" fill="rgba(0,0,0,0.12)"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="signature" role="contentinfo" aria-label="Signature">
+      <div class="sig-left">
+        <div style="font-weight:700; color:#222; margin-bottom:6px">Authorized Signatory</div>
+        <div style="font-size:13px; color:#555">On behalf of the Board</div>
+      </div>
+
+      <div class="sig-box">
+        <div class="sig-line">
+          <span class="sig-name">J. Thompson</span>
+        </div>
+        <div style="font-size:13px; color:#666; margin-top:8px">Registrar of Companies — Company House</div>
+      </div>
+    </div>
+
+    <div class="crease" aria-hidden="true"></div>
+    <div style="margin-top:32px; text-align:center; color:#666; font-size:13px">This certificate is issued electronically and is valid without an embossed seal.</div>
+  </div>
+</body>
+</html>
